@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Workspace Selection - Learning Mate</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3b82f6", // Blue for primary actions
+                        accent: "#facc15",  // Yellow for accents
+                        "background-light": "#f5f5f4",
+                        "background-dark": "#1c1917",
+                    },
+                    fontFamily: {
+                        roboto: ["Roboto", "sans-serif"],
+                        inter: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                        'xl': "16px",
+                    },
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            @apply font-roboto;
+        }
+        .font-roboto {
+            font-family: 'Roboto', sans-serif;
+        }
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        .workspace-card.selected {
+            @apply border-primary bg-blue-50/50 dark:bg-blue-900/10;
+        }
+        .workspace-card.selected .check-icon {
+            @apply block;
+        }
+    </style>
+    <script>
+        function selectWorkspace(cardId) {
+            // Remove selected class from all cards
+            document.querySelectorAll('.workspace-card').forEach(card => {
+                card.classList.remove('selected', 'border-primary', 'bg-blue-50/50', 'dark:bg-blue-900/10');
+                card.classList.add('border-gray-200', 'dark:border-stone-700');
+                // Hide all check icons
+                card.querySelector('.check-icon').classList.add('hidden');
+            });
+
+            // Add selected class to the clicked card
+            const selectedCard = document.getElementById(cardId);
+            selectedCard.classList.add('selected', 'border-primary', 'bg-blue-50/50', 'dark:bg-blue-900/10');
+            selectedCard.classList.remove('border-gray-200', 'dark:border-stone-700');
+            // Show the check icon for the selected card
+            selectedCard.querySelector('.check-icon').classList.remove('hidden');
+        }
+    </script>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col items-center justify-center p-6 transition-colors duration-300">
+    <div class="mb-10 text-center">
+        <div class="inline-flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-primary text-3xl font-bold">school</span>
+            <span class="font-roboto text-2xl font-bold text-gray-900 dark:text-white">AI Learning Lab</span>
+        </div>
+        <p class="font-roboto text-gray-500 dark:text-gray-400">Choose your workspace to get started</p>
+    </div>
+    <div
+        class="w-full max-w-xl bg-white dark:bg-stone-900 rounded-2xl shadow-xl border border-gray-200 dark:border-stone-800 p-8">
+        <div class="text-center mb-8">
+            <h2 class="font-roboto text-xl font-bold text-gray-900 dark:text-white">Select your workspace</h2>
+            <p class="font-inter text-sm text-gray-500 dark:text-stone-400 mt-1">You belong to multiple tenants</p>
+        </div>
+        <div class="space-y-4">
+            <button id="workspace-ac" onclick="selectWorkspace('workspace-ac')"
+                class="workspace-card selected w-full flex items-center p-4 bg-white dark:bg-stone-800 border-2 border-primary rounded-xl transition-all hover:bg-blue-50/50 dark:hover:bg-blue-900/10 text-left group">
+                <div
+                    class="w-12 h-12 flex-shrink-0 bg-orange-500 rounded-xl flex items-center justify-center text-white font-bold font-roboto text-lg">
+                    AC
+                </div>
+                <div class="ml-4 flex-grow">
+                    <div class="flex items-center justify-between">
+                        <span class="font-roboto font-bold text-gray-900 dark:text-white text-lg">Acme Corp</span>
+                        <span class="material-symbols-outlined text-primary check-icon">check_circle</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span
+                            class="px-3 py-0.5 rounded-full text-[10px] uppercase font-bold font-inter bg-gray-100 dark:bg-stone-700 text-gray-600 dark:text-stone-300">Admin</span>
+                        <span
+                            class="px-3 py-0.5 rounded-full text-[10px] uppercase font-bold font-inter bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">Producer</span>
+                    </div>
+                </div>
+            </button>
+            <button id="workspace-gl" onclick="selectWorkspace('workspace-gl')"
+                class="workspace-card w-full flex items-center p-4 bg-white dark:bg-stone-800 border border-gray-200 dark:border-stone-700 rounded-xl transition-all hover:border-primary/40 hover:bg-gray-50 dark:hover:bg-stone-700/50 text-left group">
+                <div
+                    class="w-12 h-12 flex-shrink-0 bg-emerald-500 rounded-xl flex items-center justify-center text-white font-bold font-roboto text-lg">
+                    GL
+                </div>
+                <div class="ml-4 flex-grow">
+                    <div class="flex items-center justify-between">
+                        <span class="font-roboto font-bold text-gray-900 dark:text-white text-lg block">GreenLeaf
+                            Education</span>
+                        <span class="material-symbols-outlined text-primary check-icon hidden">check_circle</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span
+                            class="px-3 py-0.5 rounded-full text-[10px] uppercase font-bold font-inter bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">Reviewer</span>
+                    </div>
+                </div>
+            </button>
+            <button id="workspace-tl" onclick="selectWorkspace('workspace-tl')"
+                class="workspace-card w-full flex items-center p-4 bg-white dark:bg-stone-800 border border-gray-200 dark:border-stone-700 rounded-xl transition-all hover:border-primary/40 hover:bg-gray-50 dark:hover:bg-stone-700/50 text-left group">
+                <div
+                    class="w-12 h-12 flex-shrink-0 bg-blue-500 rounded-xl flex items-center justify-center text-white font-bold font-roboto text-lg">
+                    TL
+                </div>
+                <div class="ml-4 flex-grow">
+                    <div class="flex items-center justify-between">
+                        <span class="font-roboto font-bold text-gray-900 dark:text-white text-lg block">TechLearn
+                            Institute</span>
+                        <span class="material-symbols-outlined text-primary check-icon hidden">check_circle</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span
+                            class="px-3 py-0.5 rounded-full text-[10px] uppercase font-bold font-inter bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">Learner</span>
+                    </div>
+                </div>
+            </button>
+        </div>
+        <div class="mt-8 pt-6 border-t border-gray-100 dark:border-stone-800">
+            <button
+                class="w-full mt-6 py-4 bg-primary hover:bg-blue-600 text-white font-bold font-inter rounded-xl shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]"
+                onclick="window.location.href='dashboard.html'">
+                Enter Workspace
+            </button>
+        </div>
+    </div>
+    <div class="mt-12 flex items-center gap-6">
+        <button
+            class="flex items-center text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors"
+            onclick="document.documentElement.classList.toggle('dark')">
+            <span class="material-symbols-outlined text-xl mr-2">contrast</span>
+            <span class="text-sm font-roboto font-medium">Switch Theme</span>
+        </button>
+        <div class="h-4 w-px bg-gray-300 dark:bg-stone-700"></div>
+        <button
+            class="flex items-center px-4 py-2 bg-white dark:bg-stone-900 border border-gray-200 dark:border-stone-800 rounded-full shadow-sm text-sm font-roboto font-medium text-gray-700 dark:text-stone-300 hover:bg-gray-50 dark:hover:bg-stone-800 transition-colors">
+            <span class="material-symbols-outlined text-lg mr-2">language</span>
+            English (US)
+            <span class="material-symbols-outlined text-lg ml-2">expand_more</span>
+        </button>
+    </div>
+    <div class="mt-8 flex items-center gap-2 text-xs font-roboto text-gray-400 dark:text-stone-500 italic">
+        <span class="material-symbols-outlined text-sm">info</span>
+        Your active role determines what features and content you can access
+    </div>
+
+</body>
+
+</html>
